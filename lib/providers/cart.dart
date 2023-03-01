@@ -75,6 +75,25 @@ class Cart with ChangeNotifier {
     notifyListeners();
   }
 
+//  This is fn call when undo press added item will be removed.....
+  void removeSigleItem(String id) {
+    if (!_items.containsKey(id)) {
+      return;
+    }
+    if (_items[id].quantity > 1) {
+      _items.update(
+          id,
+          (existingCartItem) => CartItem(
+              id: existingCartItem.id,
+              title: existingCartItem.title,
+              quantity: existingCartItem.quantity - 1,
+              price: existingCartItem.price));
+    } else {
+      _items.remove(id);
+    }
+    notifyListeners();
+  }
+
   void clearAllProduct() {
     _items = {};
     notifyListeners();

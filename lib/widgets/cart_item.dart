@@ -35,10 +35,34 @@ class CardItem extends StatelessWidget {
       ),
       direction: DismissDirection.endToStart,
       // This fn excute when we dismiss the cardItem...🎇🎇
+      confirmDismiss: (direction) {
+        return showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: Text('Are You sure!'),
+            content: Text('Do you want to delete item from cart?'),
+            actions: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(ctx).pop(false);
+                },
+                child: Text('NO'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(ctx).pop(true);
+                },
+                child: Text('Yes'),
+              )
+            ],
+          ),
+        );
+      },
       onDismissed: (direction) {
         // Here productId id p1,p2,p3,p4 which is save in productsprovider class List....✨✨✨
         Provider.of<Cart>(context, listen: false).removeItem(productId);
       },
+
       child: Card(
         margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
         child: Padding(

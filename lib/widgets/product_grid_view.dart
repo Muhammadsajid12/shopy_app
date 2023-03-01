@@ -20,7 +20,7 @@ class ProductGrid extends StatelessWidget {
       itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
         //  Here im using the value notifier because im nesting the provider....
         //  one  sidenote in ProductItem widget we can listen the data of individual product....😎😎
-        value: products[i],
+        value: products[i], //Here we giving the value to ProductItem
         child: ProductItem(
             // products[i].id,
             // products[i].title,

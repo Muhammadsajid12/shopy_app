@@ -71,8 +71,35 @@ class Products with ChangeNotifier {
   //   notifyListeners();
   // }
 
-  void addProductd() {
-    // _item.add(value);
+  void addProduct(Product product) {
+    // Here we have to first add model class then extract the value from product map
+    final neWProduct = Product(
+        id: DateTime.now().toString(),
+        title: product.title,
+        description: product.description,
+        price: product.price,
+        imageUrl: product.imageUrl);
+
+    _items.insert(0, neWProduct);
+
+    notifyListeners();
+  }
+
+  void updateProduct(String id, Product newproduct) {
+    final productIndex = _items.indexWhere((element) => element.id == id);
+    if (productIndex <= 0) {
+      _items[productIndex] = newproduct;
+    } else {
+      print('...');
+    }
+    notifyListeners();
+  }
+
+// use for delete the product....
+  void deleteSignalProduct(String id) {
+    print('deletefn');
+    // RemoveWhere delete the all data when condition is meet..
+    _items.removeWhere((item) => item.id == id);
     notifyListeners();
   }
 }

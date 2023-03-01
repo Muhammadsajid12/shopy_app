@@ -13,7 +13,7 @@ class ProductItem extends StatelessWidget {
     final product = Provider.of<Product>(context, listen: false);
 
     final cart = Provider.of<Cart>(context, listen: false);
-    print('printing the data');
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       //  Grid tile like listview and we getting the value by provider...🎆🎆
@@ -60,6 +60,18 @@ class ProductItem extends StatelessWidget {
             onPressed: () {
               //  Here we adding the product to CartScreen by calling cartprovider class method addItem...
               cart.addItem(product.id, product.price, product.title);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Added  Item to Cart '),
+                  duration: Duration(seconds: 2),
+                  action: SnackBarAction(
+                      label: 'UNDO',
+                      onPressed: () {
+                        // Here we listing the product.id =p1,p2,p3,p4
+                        cart.removeSigleItem(product.id);
+                      }),
+                ),
+              );
             },
             color: Theme.of(context).colorScheme.secondary,
           ),
